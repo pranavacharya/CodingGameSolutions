@@ -14,36 +14,29 @@ class Solution {
         if (in.hasNextLine()) {
             in.nextLine();
         }
+        Set <String> set = new HashSet<String>();
         for (int i = 0; i < N; i++) {
-            BigInteger x = new BigInteger(in.nextLine());
-            BigInteger temp = x;
-            BigInteger sum = new BigInteger("0");
-            boolean isHappy = false;
-            Set<BigInteger> set = new HashSet<BigInteger>();
-            set.add(temp);
-            while ( sum.compareTo(new BigInteger("1"))!= 0) {
-                sum = new BigInteger("0");
-                while( temp.compareTo(new BigInteger("0")) == 1) {
-                    sum = sum.add(temp.mod(new BigInteger("10")).pow(2));
-                    temp = temp.divide(new BigInteger("10"));     
+            String x = in.nextLine();
+            String og = x;
+            int temp;
+            set.clear();
+            set.add(x);
+            while (!x.equals("1")) {
+                temp = 0;
+                for (int c : x.toCharArray()) {
+                    temp += (c - 48) *(c -48);
+                    x = temp + "";
                 }
-                if(!set.contains(sum)) {
-                    temp = sum;
-                    set.add(sum);
-                }
-                else {
+                if(set.contains(x))
                     break;
-                }
+                else
+                    set.add(x);                
             }
-            if( sum.compareTo(new BigInteger("1")) == 0 ) {
-                isHappy = true;
+            if(x.equals("1")) {
+                System.out.println(og + " :)");
             }
-            if (isHappy) {
-                System.out.println(x + " :)");
-            }
-            else {
-                System.out.println(x + " :(");
-            }   
+            else
+                System.out.println(og + " :(");
         }
     }
 }
